@@ -9,6 +9,10 @@ sleep $wait_time
 echo importing data...
 
 # todo: check if db exists
+if /opt/mssql-tools/bin/sqlcmd -S 0.0.0.0 -U sa -P $password -Q "SELECT name FROM sys.databases WHERE name = '$database'" | grep -q "--------------------------------------------------------------------------------------------------------------------------------
+ | acme"; then
+    echo database exists
+fi
 
 # run init script to create the db
 /opt/mssql-tools/bin/sqlcmd -S 0.0.0.0 -U sa -P $password -i ./init.sql
