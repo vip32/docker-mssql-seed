@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    container_name: demo_mssql
+    ports:
+      - 1433:1433
+    volumes:
+      - /var/opt/mssql
+      - ./sql:/usr/src/app # copy  scripts into the container
+    working_dir: /usr/src/app
+    command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Abcd1234! # Server=mssql;Database=demo_mssql;User=sa;Password=Abcd1234!;Trusted_Connection=False;MultipleActiveResultSets=True;
+      - MSSQL_PID=Developer
+
+volumes:
+  mssql:
+    name: demo_mssql
+    driver: local
