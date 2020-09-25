@@ -3,7 +3,7 @@ services:
 
   mssql:
     image: mcr.microsoft.com/mssql/server
-    container_name: demo_mssql
+    container_name: demo_mssql_seed
     ports:
       - 14333:1433 # 127.0.0.1,14333
     volumes:
@@ -13,10 +13,10 @@ services:
     command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Abcd1234! # Server=mssql;Database=demo_mssql;User=sa;Password=Abcd1234!;Trusted_Connection=False;MultipleActiveResultSets=True;
+      - SA_PASSWORD=Abcd1234! # Server=mssql;Database=demo_mssql_seed;User=sa;Password=Abcd1234!;Trusted_Connection=False;MultipleActiveResultSets=True;
       - MSSQL_PID=Developer
 
 volumes:
   mssql:
-    name: demo_mssql
+    name: demo_mssql_seed
     driver: local
