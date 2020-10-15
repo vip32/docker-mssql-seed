@@ -5,15 +5,16 @@ services:
     image: mcr.microsoft.com/mssql/server
     container_name: demo_mssql_seed
     ports:
-      - 14333:1433 # 127.0.0.1,14333
+      - 14335:1433 # 127.0.0.1,14333
     volumes:
-      - /var/opt/mssql
+      - mssql:/var/opt/mssql
       - ./sql:/usr/src/app # copy  scripts into the container
     working_dir: /usr/src/app
-    command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+    # command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+    command: ["/bin/sh", "/usr/src/app/entrypoint.sh"]
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Abcd1234! # Server=mssql;Database=demo_mssql_seed;User=sa;Password=Abcd1234!;Trusted_Connection=False;MultipleActiveResultSets=True;
+      - SA_PASSWORD=Abcd1234! # Server=mssql;Database=acme;User=sa;Password=Abcd1234!;Trusted_Connection=False;MultipleActiveResultSets=True;
       - MSSQL_PID=Developer
 
 volumes:

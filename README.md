@@ -2,8 +2,9 @@
 
 - run: `docker-compose up`
 - check console logs and after 15secs the database will be created and seeded
-- mssql connection : `127.0.0.1,14333` (user: sa/Abcd1234!)
+- mssql connection : `127.0.0.1,14335` (user: sa/Abcd1234!)
 - `SELECT * FROM [acme].[dbo].[MyTable]`
+- CSV file should have encoding 'UTF-8 with BOM' and CRLF (EOL sequence)
 
 The database will only be created/seeded once!
 
